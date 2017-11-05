@@ -124,9 +124,10 @@
             if(json.hitokoto != undefined){
                 html += '<div class="post-preview"><a href="/"><h2 class="post-title">每日一言</h2>' +
                     '<div class="post-content-preview">'+json.hitokoto+'</div></a><p class="post-meta">「'+json.from+'」</p></div>';
+                console.log(html);
+                console.log(111);
                 $('.hitokoto').append(html);
             }
-            console.log(html);
         },
         error:function (json) {
             console.log(json)
