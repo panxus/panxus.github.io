@@ -123,7 +123,7 @@
             json = $.parseJSON(json);
             console.log(json);
             if(json != null){
-                html += '<div class="post-preview"><a href="/"><h2 class="post-title">每日一言</h2>' +
+                html += '<div class="post-preview"><a href="javascript:;"><h2 class="post-title">每日一言</h2>' +
                     '<div class="post-content-preview">'+json['hitokoto']+'</div></a><p class="post-meta">「'+json['from']+'」</p></div>';
                 $('.hitokoto').append(html);
             }
