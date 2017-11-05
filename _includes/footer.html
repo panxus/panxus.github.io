@@ -111,3 +111,24 @@
     })
 </script>
 <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+
+<script>
+    var html = '';
+    $.ajax({
+        url:'https://sslapi.hitokoto.cn/?c=a&encode=json',
+        data:'',
+        dataTye:'json',
+        type:'post',
+        success:function (json) {
+            if(json.hitokoto != undefined){
+                html += '<div class="post-preview"><a href="/"><h2 class="post-title">每日一言</h2>' +
+                    '<div class="post-content-preview">'+json.hitokoto+'</div></a><p class="post-meta">「'+json.from+'」</p></div>';
+                $('.hitokoto').html(html);
+            }
+        },
+        error:function (json) {
+            console.log(json)
+        }
+    });
+
+</script>
