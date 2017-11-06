@@ -50,3 +50,29 @@ description: "博客页面"
     {% endif %}
 </ul>
 {% endif %}
+
+
+<script>
+    var html = '';
+    $.ajax({
+        url:'https://sslapi.hitokoto.cn/?c=a&encode=json',
+        data:'',
+        dataTye:'json',
+        type:'post',
+        success:function (json) {
+            json = $.parseJSON(json);
+            console.log(json);
+            if(json != null){
+                /*html += '<div class="post-preview"><a href="javascript:;"><h2 class="post-title">每日一言</h2>' +
+                    '<div class="post-content-preview">'+json['hitokoto']+'</div></a><p class="post-meta">「'+json['from']+'」</p></div>';
+                $('.hitokoto').append(html);*/
+                $('.hitokoto .post-content-preview').text(json['hitokoto']);
+                $('.hitokoto>.post-meta').text('「'+json['from']+'」');
+            }
+        },
+        error:function (json) {
+            console.log(json)
+        }
+    });
+
+</script>
