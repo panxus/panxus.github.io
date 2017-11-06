@@ -127,7 +127,7 @@
                     '<div class="post-content-preview">'+json['hitokoto']+'</div></a><p class="post-meta">「'+json['from']+'」</p></div>';
                 $('.hitokoto').append(html);*/
                 $('.hitokoto .post-content-preview').text(json['hitokoto']);
-                $('.hitokoto>.post-meta').text(json['from']);
+                $('.hitokoto>.post-meta').text('「'+json['from']+'」');
             }
         },
         error:function (json) {
