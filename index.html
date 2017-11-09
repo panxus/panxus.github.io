@@ -53,25 +53,25 @@ description: "博客页面"
 
 
 <script>
-    var html = '';
     $.ajax({
         url:'https://sslapi.hitokoto.cn/?c=a&encode=json',
         data:'',
         dataTye:'json',
         type:'post',
         success:function (json) {
+            if(json == null){
+                $('.hitokoto .post-content-preview').text("从你的前前前世开始，我就开始找寻你");
+                $('.hitokoto>.post-meta').text('「你的名字」');
+            }
             json = $.parseJSON(json);
             console.log(json);
-            if(json != null){
-                /*html += '<div class="post-preview"><a href="javascript:;"><h2 class="post-title">每日一言</h2>' +
-                    '<div class="post-content-preview">'+json['hitokoto']+'</div></a><p class="post-meta">「'+json['from']+'」</p></div>';
-                $('.hitokoto').append(html);*/
-                $('.hitokoto .post-content-preview').text(json['hitokoto']);
-                $('.hitokoto>.post-meta').text('「'+json['from']+'」');
-            }
+            $('.hitokoto .post-content-preview').text(json['hitokoto']);
+            $('.hitokoto>.post-meta').text('「'+json['from']+'」');
         },
         error:function (json) {
-            console.log(json)
+            console.log(json);
+            $('.hitokoto .post-content-preview').text("做出一副温柔的样子来折磨人不是更令人难受吗？");
+            $('.hitokoto>.post-meta').text('「我的青春恋爱物语果然有问题」');
         }
     });
 
