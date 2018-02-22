@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Archive1"
+title: "归档"
 description: "文章归档"
 header-img: ""
 ---
