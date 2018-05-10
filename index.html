@@ -77,7 +77,9 @@ description: "博客页面"
                 title = '「'+json['from']+'」';
             },
             error:function () {
-                throw "error";
+                console.log('api error');
+                txt = "做出一副温柔的样子来折磨人不是更令人难受吗？";
+                title = "「我的青春恋爱物语果然有问题」";
             }
         });
     }catch (err)
