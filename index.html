@@ -66,8 +66,8 @@ var config = {
     function getHitokoto(ttl) {
         var txt = localStorage.getItem(config.txt_key) || "";
         var title = localStorage.getItem(config.title_title) || "";
-        var txtJson = JSON.parse(txt)
-        var titleJson = JSON.parse(title)
+        var txtJson = $.parseJSON(txt)
+        var titleJson = $.parseJSON(title)
         if(txt=="" || title==""){
             setHitokoto();
         }else if((new Date().getTime() - txtJson.time)>ttl){
