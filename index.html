@@ -54,43 +54,58 @@ description: "博客页面"
 
 <script>
 
-    var txt='';
-    var title='';
-    try
-    {
-        $.ajax({
-            url:'https://v1.hitokoto.cn/?c=a&encode=json',
-            data:'',
-            dataTye:'json',
-            type:'post',
-            async:false,
-            success:function (json) {
-                if(json == null){
-                    txt = "从你的前前前世开始，我就开始找寻你";
-                    title = '「你的名字」';
-                    throw "empty";
-                }
-                json = $.parseJSON(json);
-                console.log('api success');
-                console.log(json);
-                txt = json['hitokoto'];
-                title = '「'+json['from']+'」';
-            },
-            error:function () {
-                console.log('api error');
-                txt = "做出一副温柔的样子来折磨人不是更令人难受吗？";
-                title = "「我的青春恋爱物语果然有问题」";
-            }
-        });
-    }catch (err)
-    {
-        console.log('api error');
-        console.log(err);
-        txt = "做出一副温柔的样子来折磨人不是更令人难受吗？";
-        title = "「我的青春恋爱物语果然有问题」";
+var config = {
+        ttl:60*1000,
+        txt:'',
+        title:'',
+        txt_key:'hitokoto_txt',
+        title_title:'hitokoto_title'
+    };
+    getHitokoto(config.ttl);
+
+    function getHitokoto(ttl) {
+        var txt = localStorage.getItem(config.txt_key) || "";
+        var title = localStorage.getItem(config.title_title) || "";
+        var txtJson = JSON.parse(txt)
+        var titleJson = JSON.parse(title)
+        if(txt=="" || title==""){
+            setHitokoto();
+        }else if((new Date().getTime() - txtJson.time)>ttl){
+            setHitokoto();
+        }else {
+            config.txt = txtJson.data;
+            config.title = titleJson.data;
+        }
+        $('.hitokoto .post-content-preview').text(config.txt);
+        $('.hitokoto>.post-meta').text(config.title);
     }
 
-    $('.hitokoto .post-content-preview').text(txt);
-    $('.hitokoto>.post-meta').text(title);
+    function setHitokoto() {
+            $.ajax({
+                url:'https://international.v1.hitokoto.cn/?c=a&encode=json',
+                data:'',
+                dataTye:'json',
+                type:'get',
+                async:false,
+                success:function (json) {
+                    console.log('api success');
+                    console.log(json);
+                    config.txt = json['hitokoto'];
+                    config.title = '「'+json['from']+'」';
+                },
+                error:function () {
+                    console.log('api error');
+                    config.txt = "做出一副温柔的样子来折磨人不是更令人难受吗？";
+                    config.title = "「我的青春恋爱物语果然有问题」";
+                }
+            });
+            set(config.txt_key,config.txt)
+            set(config.title_title,config.title)
+    }
+
+    function set(key,value) {
+        var curTime = new Date().getTime();
+        localStorage.setItem(key, JSON.stringify({data: value, time: curTime}));
+    }
 
 </script>
